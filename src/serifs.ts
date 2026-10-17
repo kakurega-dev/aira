@@ -389,11 +389,6 @@ export default {
 		emojiOnce: emoji => `:${emoji}:(\`${emoji}\`)`
 	},
 
-	sleepReport: {
-		report: (hours: mixedString) => `んぅ...${hours}時間くらい寝ちゃってたみたい...`,
-		reportUtatane: 'ん... うたた寝しちゃってた...',
-	},
-
 	noting: {
 		notes: [
 			'ゴロゴロ…',
