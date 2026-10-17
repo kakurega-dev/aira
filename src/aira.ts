@@ -35,7 +35,6 @@ export type InstallerResult = {
 
 export type Meta = {
 	[key: string]: string | number | undefined
-	lastWakingAt: number
 }
 
 /**
@@ -50,7 +49,6 @@ export default class Aira {
 	private timeoutCallbacks: { [moduleName: string]: TimeoutCallback } = {}
 	private watchDogTimer: NodeJS.Timeout | null = null
 	public db!: Loki
-	public lastSleepedAt!: number
 	private meta!: Loki.Collection<Meta>
 
 	private contexts!: Loki.Collection<{
@@ -175,9 +173,6 @@ export default class Aira {
 		})
 		//#endregion
 
-		const meta = this.getMeta()
-		this.lastSleepedAt = meta.lastWakingAt
-
 		//#region Main stream
 		const mainStream = this.stream.useChannel('main')
 
@@ -233,7 +228,6 @@ export default class Aira {
 		// タイマー監視
 		this.crawleTimer()
 		setInterval(this.crawleTimer, 1000)
-		setInterval(this.logWaking, 10000)
 
 		this.log(chalk.green(chalk.bold('Aira am now running!')))
 	}
@@ -332,13 +326,6 @@ export default class Aira {
 				this.timeoutCallbacks[timer.module](timer.data)
 			}
 		}
-	}
-
-	@bindThis
-	private logWaking() {
-		this.setMeta({
-			lastWakingAt: Date.now(),
-		})
 	}
 
 	/**
@@ -462,9 +449,7 @@ export default class Aira {
 		if (rec) {
 			return rec
 		} else {
-			const initial: Meta = {
-				lastWakingAt: Date.now(),
-			}
+			const initial: Meta = {}
 
 			this.meta.insertOne(initial)
 			return initial

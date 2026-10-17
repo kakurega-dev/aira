@@ -26,7 +26,6 @@ import FollowModule from '@/modules/follow/index.js'
 import ValentineModule from '@/modules/valentine/index.js'
 import MazeModule from '@/modules/maze/index.js'
 import ChartModule from '@/modules/chart/index.js'
-import SleepReportModule from '@/modules/sleep-report/index.js'
 import NotingModule from '@/modules/noting/index.js'
 import PollModule from '@/modules/poll/index.js'
 import ReminderModule from '@/modules/reminder/index.js'
@@ -69,7 +68,6 @@ new Aira([
 	new KeywordModule(),
 	new MazeModule(),
 	new ChartModule(),
-	new SleepReportModule(),
 	new NotingModule(),
 	new PollModule(),
 	new ReminderModule(),
